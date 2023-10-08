@@ -13,18 +13,25 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            // match a valid email address with mongoose
+            // matching a valid email address with mongoose
+            match: [/.+@.+\..+/], 
         },
-        thoughts: {
-
-        },
-        friends: {
-
-        }
+        thoughts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Thought',
+            },
+        ],
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            },
+        ]
         
     }
 );
 
-const User = model('user', userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;
