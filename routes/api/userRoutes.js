@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const { User, Thought } = require('../../models');
+const { User } = require('../../models');
 
 // /api/users
 
 // GET all users
-router.route('/').get(async function(req,res) {
+router.route('/').get(async function(req, res) {
     try {
         const users = await User.find();
         res.json(users);
@@ -18,12 +18,13 @@ router.route('/:id').get(async function(req, res) {
     try {
         const user = await User.findOne({
             _id: req.params.id
-        })
+        });
         res.json(user);
     } catch (error) {
         console.log(error);
     }
 });
+
 // POST a new user
 router.route('/').post(async function(req, res) {
     try {
@@ -33,6 +34,7 @@ router.route('/').post(async function(req, res) {
         console.log(error);
     }
 });
+
 // PUT update a user by its id
 router.route('/:userId').put(async function(req, res) {
     try {
@@ -46,17 +48,19 @@ router.route('/:userId').put(async function(req, res) {
         console.log(error);
     }
 });
+
 // DELETE to remove user by its id
 router.route('/:userId').delete(async function(req, res) {
     try {
         const user = await User.findOneAndDelete({
             _id: req.params.userId
         });
-        res.json({ message: 'User has been deleted!' });
+        res.json(user, { message: 'User has been deleted!' });
     } catch (error) {
         console.log(error);
     }
 });
+
 //BONUS: Remove a users associated thoughts when deleted
 // /api/users/:userId/friends/:friendId
 
@@ -67,12 +71,13 @@ router.route('/:userId/friends/:friendId').post(async function(req, res) {
             {_id: req.params.userId},
             { $push: { friends: req.params.friendId } },
             { runValidators: true, new: true }
-        )
+        );
         res.json(user);
     } catch (error) {
         console.log(error);
     }
 });
+
 // DELETE to remove a friend from a users friend list
 router.route('/:userId/friends/:friendId').delete(async function(req, res) {
     try {
@@ -80,7 +85,7 @@ router.route('/:userId/friends/:friendId').delete(async function(req, res) {
             {_id: req.params.userId},
             { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true }
-        )
+        );
         res.json(user);
     } catch (error) {
         console.log(error);
