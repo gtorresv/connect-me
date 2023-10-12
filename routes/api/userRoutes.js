@@ -91,3 +91,5 @@ router.route('/:userId/friends/:friendId').delete(async function(req, res) {
         console.log(error);
     }
 });
+
+module.exports = router;

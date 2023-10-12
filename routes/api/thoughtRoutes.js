@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Thought, Reaction } = require('../../models');
+const { Thought } = require('../../models');
 
 // /api/thoughts
 
@@ -70,12 +70,12 @@ router.route('/:thoughtId').delete(async function(req, res) {
 // POST to create a reaction stored in a single thoughts reaction array field
 router.route('/:thoughtId/reactions').post(async function(req, res) {
     try {
-        const reaction = await Reaction.findOneAndUpdate(
+        const thought = await Thought.findOneAndUpdate(
             {_id: req.params.thoughtId},
             { $push: { reactions: req.body } },
             { runValidators: true, new: true }
         );
-        res.json(reaction);
+        res.json(thought);
     } catch (error) {
         console.log(error);
     }
@@ -83,13 +83,15 @@ router.route('/:thoughtId/reactions').post(async function(req, res) {
 // DELETE to pull and remove a reaction by the reactions reactionId value
 router.route('/:thoughtId/reactions/:reactionId').delete(async function(req, res) {
     try {
-        const reaction = await Reaction.findByIdAndUpdate(
+        const thought = await Thought.findByIdAndUpdate(
             {_id: req.params.thoughtId},
             { $pull: { reactions: req.params.reactionId } },
             { runValidators: true, new: true }
         );
-        res.json(reaction);
+        res.json(thought);
     } catch (error) {
         console.log(error);
     }
 });
+
+module.exports = router;
