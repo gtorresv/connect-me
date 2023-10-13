@@ -61,7 +61,7 @@ router.route('/:userId').delete(async function(req, res) {
     }
 });
 
-//BONUS: Remove a users associated thoughts when deleted
+// Remove a users associated thoughts when deleted
 // /api/users/:userId/friends/:friendId
 
 // POST to add a new friend to a users friend list
