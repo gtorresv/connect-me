@@ -12,7 +12,6 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now(),
-            // getter method
         },
         username: {
             type: String,
@@ -31,6 +30,12 @@ const thoughtSchema = new Schema(
 // Virtual property for 'reactionCount' that retrieves the length of the thought's reactions array 
 thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
+});
+
+// Getter method for 'formattedTimestamp'
+thoughtSchema.virtual('formattedTimestamp').get(function() {
+    const formattedTime = new Date(this.createdAt);
+    return formattedTime.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
 });
 
 const Thought = model('thought', thoughtSchema);
