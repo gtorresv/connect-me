@@ -55,7 +55,7 @@ router.route('/:userId').delete(async function(req, res) {
         const user = await User.findOneAndDelete({
             _id: req.params.userId
         });
-        res.json(user, { message: 'User has been deleted!' });
+        res.status(200).json({ message: 'User has been deleted!' });
     } catch (error) {
         console.log(error);
     }
@@ -86,7 +86,7 @@ router.route('/:userId/friends/:friendId').delete(async function(req, res) {
             { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true }
         );
-        res.json(user);
+        res.json({ message: 'Friend has been removed!' });
     } catch (error) {
         console.log(error);
     }

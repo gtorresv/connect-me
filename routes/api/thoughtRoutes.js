@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Thought } = require('../../models');
+const { Thought, User } = require('../../models');
 
 // /api/thoughts
 
@@ -26,13 +26,21 @@ router.route('/:id').get(async function(req, res) {
 });
 
 // POST to create a new thought & push the created thoughts id to the associated users thoughts array field
-router.route('/:thoughtId').post(async function(req, res) {
+router.route('/').post(async function(req, res) {
     try {
-        const thought = await Thought.create(
-            { _id: req.params.thoughtId },
-            { $push: { user: req.params.userId } },
+        const thought = await Thought.create(req.body);
+        const user = await User.findOneAndUpdate(
+            { _id: req.body.userId },
+            { $push: { thoughts: thought._id } },
             { runValidators: true, new: true }
         );
+
+        if (!user) {
+            return res.status(400).json({ 
+                message: 'Thought created, but no user found with that ID' 
+            });
+        }
+
         res.json(thought);
     } catch (error) {
         console.log(error);
