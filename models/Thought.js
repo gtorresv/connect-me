@@ -38,6 +38,6 @@ thoughtSchema.virtual('formattedTimestamp').get(function() {
     return formattedTime.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
 });
 
-const Thought = model('thought', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
 
 module.exports = Thought;

@@ -14,11 +14,11 @@ router.route('/').get(async function(req, res) {
 });
 
 // GET a single user by its id and populate thought and friend data
-router.route('/:id').get(async function(req, res) {
+router.route('/:userId').get(async function(req, res) {
     try {
-        const user = await User.findOne({
-            _id: req.params.id
-        });
+        const user = await User.findOne({ _id: req.params.userId })
+            .populate('thoughts')
+            .populate('friends');
         res.json(user);
     } catch (error) {
         console.log(error);
