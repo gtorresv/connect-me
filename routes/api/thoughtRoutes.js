@@ -31,7 +31,7 @@ router.route('/').post(async function(req, res) {
         const thought = await Thought.create(req.body);
         const user = await User.findOneAndUpdate(
             { _id: req.body.userId },
-            { $push: { thoughts: thought.body } },
+            { $push: { thoughts: thought._id } },
             { runValidators: true, new: true }
         );
 
