@@ -13,6 +13,7 @@ If you have not done so, you can download [Node](https://nodejs.org/en/download)
 You can download the application and from the directory open up a terminal within Visual Studio Code. On the terminal, you can start by running the command `npm i`. After the install, you can run the command `node server.js` to start the server. The server should run on PORT 3001 so on Insomnia you can run API requests with `localhost:3001`. A video will be provided detailing the functionality of the application. 
 
 Video Demo:
+[Social Network API Demo](https://watch.screencastify.com/v/wmaRCGX7gLyUpBRbgq8n)
 
 ## Credits
 
