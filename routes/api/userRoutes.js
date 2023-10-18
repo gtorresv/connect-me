@@ -86,7 +86,7 @@ router.route('/:userId/friends/:friendId').delete(async function(req, res) {
             { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true }
         );
-        res.json({ message: 'Friend has been removed!' });
+        res.json(user);
     } catch (error) {
         console.log(error);
     }

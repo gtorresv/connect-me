@@ -67,7 +67,7 @@ router.route('/:thoughtId').delete(async function(req, res) {
         const thought = await Thought.findOneAndDelete({
             _id: req.params.thoughtId
         });
-        res.json(thought, { message: 'Thought has been deleted!' });
+        res.status(200).json({ message: 'Thought has been deleted!' });
     } catch (error) {
         console.log(error);
     }
@@ -96,7 +96,7 @@ router.route('/:thoughtId/reactions/:reactionId').delete(async function(req, res
             { $pull: { reactions: req.params.reactionId } },
             { runValidators: true, new: true }
         );
-        res.json(thought);
+        res.json({ message: 'Reaction has been removed!' });
     } catch (error) {
         console.log(error);
     }
